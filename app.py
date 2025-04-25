@@ -18,6 +18,7 @@ topics = st.sidebar.multiselect(
     ["World", "Politics", "Technology", "Science", "Health", "Business", "Entertainment", "Sports"],
     default=["World", "Technology", "Politics"]
 )
+city_filter = st.sidebar.text_input("🌍 Filter by City or Location (optional)", "")
 
 # ------------------ HELPER FUNCTIONS ------------------
 
@@ -73,7 +74,8 @@ else:
     summaries = {}
     for topic in topics:
         st.markdown(f"## 🔎 {topic} News")
-        headlines = get_news_headlines(f"{topic} news", max_results=num_articles)
+        search_query = f"{city_filter + ' ' if city_filter else ''}{topic} news"
+        headlines = get_news_headlines(search_query, max_results=num_articles)
         if headlines:
             for i, h in enumerate(headlines, 1):
                 st.markdown(f"{i}. {h}")
@@ -83,7 +85,7 @@ else:
                 st.info(summary)
                 summaries[topic] = summary
         else:
-            st.warning(f"No headlines found for {topic}.")
+            st.warning(f"No headlines found for {topic} in {city_filter or 'general region'}.")
 
     if summaries:
         pdf_file = export_summary_to_pdf(summaries, selected_date)
@@ -95,4 +97,5 @@ else:
         )
 
 st.caption("Created with ❤️ using DuckDuckGo, OpenAI, and Streamlit.")
+
 
