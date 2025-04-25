@@ -6,7 +6,7 @@ import datetime
 import io
 
 # ------------------ CONFIG ------------------
-st.set_page_config(page_title="📰 Daily News Summary", layout="wide")
+st.set_page_config(page_title="📰 DTN Daily Ai News Maker", layout="wide")
 st.title("🗞️ Daily News Summary App")
 
 # Sidebar inputs
